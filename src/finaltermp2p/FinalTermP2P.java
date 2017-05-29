@@ -4,7 +4,10 @@
  * and open the template in the editor.
  */
 package finaltermp2p;
-
+import it.unimi.dsi.webgraph.ImmutableGraph;
+import it.unimi.dsi.webgraph.NodeIterator;
+import it.unimi.dsi.webgraph.algo.ConnectedComponents;
+import it.unimi.dsi.big.webgraph.algo.StronglyConnectedComponents;
 /**
  *
  * @author luca
