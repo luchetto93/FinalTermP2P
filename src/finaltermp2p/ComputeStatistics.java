@@ -174,7 +174,7 @@ import java.util.*;
               return a-1; // they are equal
        }
     }
-    public int doubling_search(int a[],int n,Integer b[],int m)
+    public int doubling_search(int a[],int n,List<Integer> b,int m)
     {
       int count = 0;
       int i = 0;
@@ -183,12 +183,12 @@ import java.util.*;
       int power = (int)Math.pow(2, k);
         for (int j = 0; j < m; j++) {
             k=0;
-            while((i+power)<n && b[j]>a[i+power])
+            while((i+power)<n && b.get(j)>a[i+power])
             {    
              k++;
              power = (int)Math.pow(2, k);
             }
-            new_i = binary_search(a,b[j],i+1,min(power,n));
+            new_i = binary_search(a,b.get(j),i+1,min(power,n));
             if(new_i!=-1)
                 count++;
     }
@@ -215,9 +215,15 @@ import java.util.*;
        NodeIterator nodI = graph.nodeIterator();
        List<Integer>list;
        Map<Integer, List<Integer>> indegre = new HashMap<Integer,  List<Integer>>();
+       Bidirectional bid[] = new Bidirectional[this.number_nodes];
         for (int i = 0; i < this.number_nodes; i++) {
-            indegre.put(0, new ArrayList<Integer>());
+            bid[i] = new Bidirectional();
         }
+       /* System.out.println("INIZIALIZZATO");
+          for (int i = 0; i < this.number_nodes; i++) {
+            indegre.put(i, new ArrayList<Integer>());
+        }
+        */
        System.out.println("INIZIALIZZATO");
        int k = 0;
        for (int i = 0; i < this.number_nodes; i++) {
@@ -226,15 +232,33 @@ import java.util.*;
             int out_nodes []= nodI.successorArray();
             for (int j = 0; j < out_degree; j++) {
                 k = out_nodes[j];
-                list = new ArrayList<Integer>();
-                list.add(n_id);
-                indegre.put(k, list);
+                bid[k].list.add(n_id);
             }
-            //System.out.println(i);
+            System.out.println(i);
         }
+       
+        //System.out.println("Completato");
+       /* NodeIterator n_I = graph.nodeIterator();
         for (int i = 0; i < this.number_nodes; i++) {
-            
-        }
+            n_I.nextInt();
+            if(n_I.outdegree() > 0)
+            {
+             int array[] = n_I.successorArray();
+             list = indegre.get(i);
+             if(list != null)
+             {
+                 for (int j = 0; j < list.size(); j++) {
+                     for (int l = 0; l < n_I.outdegree(); l++) {
+                         if(list.get(j)==array[l])
+                             count++;
+                     }
+                 }
+             
+             }
+                 
+            }
+          }
+       */
        
     return count;
     }
