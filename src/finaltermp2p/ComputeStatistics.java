@@ -20,7 +20,7 @@ import java.util.Set;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Arrays;
-
+import java.util.*;
 /**
  *
  * @author luca
@@ -126,24 +126,29 @@ import java.util.Arrays;
             nodI.nextInt();
         }
     }
-    private int check_if_is_mutual(int node_id,int out_degree,int successor[],int n_bidirectional)
+    private List<Integer> find_indegree(int node_id)
     {
-      
-      boolean bidirectional = false;
-      int successor_out_degree;  
-         for (int i = 0; i < out_degree; i++) {
-             int successors_of_successor[] = graph.successorArray(successor[i]);
-             successor_out_degree = graph.outdegree(successor[i]);
-             for (int j = 0; j < successor_out_degree; j++) {
-                 if(successors_of_successor[j]==node_id)
-                 {
-                   n_bidirectional++;
-                   break; /*item has been found, the search is stopped*/
-                 }
-             }
-        }
-      return n_bidirectional;
+      List<Integer>list = new ArrayList<Integer>();
+      NodeIterator noidI = graph.nodeIterator();
+      int j = 0;
+         for (int i = 0; i < number_nodes; i++) {
+             noidI.nextInt();
+             int successor[] = noidI.successorArray();
+             j=0;
+             while(j<noidI.outdegree() && successor[j]<node_id)
+             {
+                if(node_id ==successor[j])
+                {    
+                    list.add(successor[j]);
+                }
+                j++;
+               }
+          }
+        
+      return list;
     }
+    
+    
     public int number_of_mutual_connections()
     {
        // PRE:  graph != null && it must be alreay scanned with a proper iterator
@@ -155,6 +160,8 @@ import java.util.Arrays;
         You scan the graph and insert the key <K,V> in the Map,
         the check for mutual connection is performed only if K < V
       */  
+       int x = 0;
+       int y = 0;
        int n_id = 0;
        int ch_id =0;
        boolean mutual_connection = false;
@@ -166,17 +173,14 @@ import java.util.Arrays;
         for (int i = 0; i < this.number_nodes; i++) {
             n_id = nodI.nextInt();
             out_degree = nodI.outdegree();
-            int adjacent []= nodI.successorArray();
-            for (int j = 0; j < out_degree; j++) {
-                ch_id = adjacent[j];
-                tmap.put(n_id, ch_id);
-                if (n_id<ch_id) {
-                    if(tmap.remove(ch_id, n_id))
-                        count++;
-                }
+            int out_nodes []= nodI.successorArray();
+            List <Integer> inn_nodes = find_indegree(n_id);
+            while(x<out_degree && y <inn_nodes.size() && ! mutual_connection)
+            {
+              // if()
             }
         }
-    return count;
+    return tmap.size();
     }
     
     public ConnectedComponents compute_connected_component(int n_threads)
