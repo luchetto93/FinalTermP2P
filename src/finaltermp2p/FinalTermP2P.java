@@ -77,11 +77,10 @@ public class FinalTermP2P {
         System.out.println(tmap.size());
         int array[] = {1,4,6,7,9,12,15,18,21,48};
         int array1[] = {3,4,5,8,12,15,48};
-        doubling_search(array,array.length,array1,array1.length);
+        //doubling_search(array,array.length,array1,array1.length);
         //int v = binary_search(array,21,0,array.length-1);
         //System.out.println(v);
-        /*if(tmap.remove(7, 9))
-            System.out.println("RIMOSSO");
+        
         try{
          int out_d;
          
@@ -93,7 +92,7 @@ public class FinalTermP2P {
         {
         e.printStackTrace();
         }
-*/
+
     }
     
 }

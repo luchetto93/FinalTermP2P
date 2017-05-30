@@ -15,7 +15,6 @@ import it.unimi.dsi.webgraph.algo.ConnectedComponents;
 import it.unimi.dsi.big.webgraph.algo.StronglyConnectedComponents;
 import it.unimi.dsi.logging.ProgressLogger;
 import java.util.Collections;
-import java.util.TreeMap;
 import java.util.Set;
 import java.util.Iterator;
 import java.util.Map;
@@ -148,7 +147,53 @@ import java.util.*;
       return list;
     }
     
-    
+    public int binary_search(int a[],int key,int low,int high)
+    {
+        int mid;
+        while (low <= high) {
+        mid = (low + high) / 2;
+        if (a[mid] > key) {
+            high = mid - 1;
+        } else if (a[mid] < key) {
+            low = mid + 1;
+        } else {
+            return mid;
+        }
+    }
+        return -1;
+    }
+    public int min(int a, int b)
+    {
+       if(a>b)
+           return b;
+       else
+       {
+          if(a<b)
+              return a;
+          else
+              return a-1; // they are equal
+       }
+    }
+    public int doubling_search(int a[],int n,Integer b[],int m)
+    {
+      int count = 0;
+      int i = 0;
+      int new_i = 0;
+      int k = 0;
+      int power = (int)Math.pow(2, k);
+        for (int j = 0; j < m; j++) {
+            k=0;
+            while((i+power)<n && b[j]>a[i+power])
+            {    
+             k++;
+             power = (int)Math.pow(2, k);
+            }
+            new_i = binary_search(a,b[j],i+1,min(power,n));
+            if(new_i!=-1)
+                count++;
+    }
+        return count;
+    }
     public int number_of_mutual_connections()
     {
        // PRE:  graph != null && it must be alreay scanned with a proper iterator
@@ -168,19 +213,21 @@ import java.util.*;
        int out_degree = 0;
        int count = 0;
        NodeIterator nodI = graph.nodeIterator();
-       TreeMap<Integer, Integer> tmap = new TreeMap<Integer, Integer>();
-
-        for (int i = 0; i < this.number_nodes; i++) {
+       Map<Integer, List<Integer>> indegre = new HashMap<Integer,  List<Integer>>();
+       int k = 0;
+       for (int i = 0; i < this.number_nodes; i++) {
             n_id = nodI.nextInt();
             out_degree = nodI.outdegree();
             int out_nodes []= nodI.successorArray();
-            List <Integer> inn_nodes = find_indegree(n_id);
-            while(x<out_degree && y <inn_nodes.size() && ! mutual_connection)
-            {
-              // if()
+            for (int j = 0; j < out_degree; j++) {
+                k = out_nodes[j];
+                List<Integer> list = indegre.get(k); 
+                list.add(n_id);
+                indegre.put(k, list);
             }
         }
-    return tmap.size();
+       
+    return count;
     }
     
     public ConnectedComponents compute_connected_component(int n_threads)
