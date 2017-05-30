@@ -213,7 +213,12 @@ import java.util.*;
        int out_degree = 0;
        int count = 0;
        NodeIterator nodI = graph.nodeIterator();
+       List<Integer>list;
        Map<Integer, List<Integer>> indegre = new HashMap<Integer,  List<Integer>>();
+        for (int i = 0; i < this.number_nodes; i++) {
+            indegre.put(0, new ArrayList<Integer>());
+        }
+       System.out.println("INIZIALIZZATO");
        int k = 0;
        for (int i = 0; i < this.number_nodes; i++) {
             n_id = nodI.nextInt();
@@ -221,10 +226,14 @@ import java.util.*;
             int out_nodes []= nodI.successorArray();
             for (int j = 0; j < out_degree; j++) {
                 k = out_nodes[j];
-                List<Integer> list = indegre.get(k); 
+                list = new ArrayList<Integer>();
                 list.add(n_id);
                 indegre.put(k, list);
             }
+            //System.out.println(i);
+        }
+        for (int i = 0; i < this.number_nodes; i++) {
+            
         }
        
     return count;

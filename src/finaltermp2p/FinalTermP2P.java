@@ -86,8 +86,8 @@ public class FinalTermP2P {
          
          BVGraph graph = BVGraph.load("/home/luca/NetBeansProjects/JavaApplication11/bvtime0");
          ComputeStatistics stat = new ComputeStatistics(graph);
-         int n = stat.number_of_mutual_connections();
-         System.out.println(n);
+         stat.number_of_mutual_connections();
+      //   System.out.println(n);
         }catch(Exception e)
         {
         e.printStackTrace();
